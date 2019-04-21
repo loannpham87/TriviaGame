@@ -16,23 +16,30 @@
     <meta charset="UTF-8">
 </head>
 
-<body style="background-color: black;"> 
-    
+<body style="background-color: black;">
+
     <img id="background" src="assets\images\big-lebowski-game-background.jpg" alt="Big Lebowski Background">
 
     <div class="main-content">
         <img id="game-banner" src="assets\images\game-banner.jpg" alt="Big Lebowski Trivia Game Banner">
         <div id="trivia-heading"><strong>Trivia Game !</strong></div>
-        <button type="button" class="btn btn-outline-primary"><strong>Start Game</strong></button>
-        <h3 id="abide"><strong>The Dude abides.</strong></h3>
+        <div id="button-and-text">
+            <button type="button" class="btn btn-outline-primary"><strong>Start Game</strong></button>
+            <h3 id="abide"><strong>The Dude abides.</strong></h3>
+            <audio id="abides-audio">
+                <source src="assets\sound\abides.mp3" type="audio/mp3">
+            </audio>
+        <!-- <div id="countdown-timer-text">
+            <p>Time remaining: </p>
+            <p id="countdown-timer-clock"></p>
+        </div> -->
+        </div>
+
     </div>
 
 
-    <script type="text/javascript">
+    <script src="assets\javascript\app.js"></script>
 
-
-
-    </script>
 
 </body>
 
