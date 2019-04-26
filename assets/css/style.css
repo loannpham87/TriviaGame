@@ -100,11 +100,13 @@ body {
     /* font-family: 'Dokdo', cursive; */
     /* font-family: 'Indie Flower', cursive; */
     font-family: 'Shadows Into Light', cursive;
-    font-family: 'Amatic SC', cursive;
+    /* font-family: 'Amatic SC', cursive; */
     /* font-family: 'Gloria Hallelujah', cursive; */
     font-size: 24px;
     position: absolute;
     top: 270px;
+    font-weight: bolder;
+
 }
 
 ul{ 
@@ -149,6 +151,24 @@ li {
     left: 5px;
 }
 
+.correct {
+    font-family: 'Shadows Into Light', cursive;
+    /* font-family: 'Amatic SC', cursive; */
+    font-size: 100px;
+    position: absolute;
+    top: 225px;
+    left: 225px;
+}
+
+.incorrect {
+    font-family: 'Shadows Into Light', cursive;
+    /* font-family: 'Amatic SC', cursive; */
+    font-size: 100px;
+    position: absolute;
+    top: 225px;
+    left: 200px;
+}
+
 /* 
 #button-and-text {
     text-align: center;
@@ -173,3 +193,4 @@ li {
     font-family: 'Amatic SC', cursive;
     font-family: 'Gloria Hallelujah', cursive;
 } */
+
