@@ -1,14 +1,18 @@
 //global variables
 //set timer to 30 seconds
-var timeRemaining = 11;
+var timeRemaining = 30;
 //holds time interval
 var timeInterval = 0;
+//hold 5 second timeout
+var fiveSecondTimeout = 5;
 //holds count for correct answers
 var countCorrectAnswers = 0;
 //holds count for incorrect answers
 var countIncorrectAnswers = 0;
 //holds count for unanswered questions
 var countUnansweredQuestions = 0;
+// holds index of current question
+var currentQuestion = 0;
 //holds questions, answers, correct answers
 var questionsArray =
     [{
@@ -53,46 +57,70 @@ var questionsArray =
         correctAnswer: "a toe"
     }];
 
-var fiveSecondTimeout = function () {
-    setTimeout = (1000 * 5);
+    function setTimeout () {
+        fiveSecondTimeout--;
 }
 
-var startButton = function () {
+function startButton() {
     $("#button-and-text").click(function () {
         $('audio#abides-audio')[0].play();
         $("#button-and-text").hide();
-        startTrivia();
-    });
-};
-
-var startTrivia = function () {
-    run();
-    decrement();
-    for (var i = 0; i < questionsArray.length; i++) {
-        $("#questions").append(questionsArray[i].q);
-        $("#answerA").append(questionsArray[i].answers[0]);
-        $("#answerB").append(questionsArray[i].answers[1]);
-        $("#answerC").append(questionsArray[i].answers[2]);
-        $("#answerD").append(questionsArray[i].answers[3]);
         $(".start-trivia").show();
         $(".btn-sm").show();
-        //show questions one at a time
-        //invoke game stats function after last question is answered
-    }
-    $(".btn-sm").click(function () {
+    
+        startTrivia();
+    });
+
+
+function startTrivia() {
+    run();
+    decrement();
+    //initial question
+    var i = currentQuestion;
+    $("#questions").text(questionsArray[i].q);
+    $("#answerA").text(questionsArray[i].answers[0]);
+    $("#answerB").text(questionsArray[i].answers[1]);
+    $("#answerC").text(questionsArray[i].answers[2]);
+    $("#answerD").text(questionsArray[i].answers[3]);
+    $(".btn-sm").click(function (e) {
         stop();
-        if (questionsArray.answers === questionsArray.correctAnswer) {
+        if (questionsArray[i].answers == questionsArray[i].correctAnswer) {
             countCorrectAnswers++;
             $(".correct").show();
-            $(".start-trivia").hide();
         } else {
             countIncorrectAnswers++;
             $(".incorrect").show();
-            $(".start-trivia").hide();
+            $("#display-correct-answer").text("The correct answer is: " + (questionsArray[i].correctAnswer) + "")
         }
         //5 second timeout here
+        hideDiv();
     });
 };
+
+function hideDiv() {
+    setTimeout();
+    $(".start-trivia").hide();
+    $(".btn-sm").hide();
+    showNextQuestion();
+}
+
+function showDiv() {
+    $(".start-trivia").show();
+    $(".btn-sm").show();
+    $(".correct").hide();
+    $(".incorrect").hide();
+}
+
+function showNextQuestion() {
+    currentQuestion++;
+    startTrivia();
+    showDiv();
+}
+
+
+
+//invoke game stats function after last question is answered
+
 
 function run() {
     clearInterval(timeInterval);
@@ -106,36 +134,34 @@ function stop() {
 function decrement() {
     timeRemaining--;
     $("#display-timer").html("<p>Time remaining: </p><p style=color:black;>" + timeRemaining + " secs</p>");
-    if (timeRemaining === 0) {
-        countUnansweredQuestions++;
-        stop();
     }
 };
 
-function gameStats() {
+ function gameStats() {
     $(".game-stats").show();
     $("#correct-answers").append(countCorrectAnswers);
     $("#incorrect-answers").append(countIncorrectAnswers);
     $("#unanswered-questions").append(countUnansweredQuestions);
-    gameReset();
+    // gameReset();
 }
 
 function gameReset() {
     $(".btn-lg").click(function () {
-        startTrivia();
+        // startTrivia();
         countCorrectAnswers.clear();
         countIncorrectAnswers.clear();
         countUnansweredQuestions.clear();
     });
 };
 
-// hides divs until function is invoked
+//starts game
+startButton();
 $(".start-trivia").hide();
 $(".btn-sm").hide();
 $(".game-stats").hide();
 $(".correct").hide();
 $(".incorrect").hide();
 
-//starts game
-startButton();
-
+// } else if (timeRemaining === 0) {
+//     stop();
+//     countUnansweredQuestions++;
